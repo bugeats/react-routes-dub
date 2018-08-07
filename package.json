@@ -1,0 +1,27 @@
+{
+  "name": "react-routes-dub",
+  "version": "0.0.1",
+  "description": "Stripped-down, named React routes for modern browsers.",
+  "author": "Chadwick Dahlquist",
+  "license": "MIT",
+  "main": "index.js",
+  "homepage": "https://github.com/bugeats/react-routes-dub#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bugeats/react-routes-dub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bugeats/react-routes-dub/issues"
+  },
+  "dependencies": {
+    "path-to-regexp": "^2.2.1"
+  },
+  "keywords": [
+    "history-api",
+    "minimalist",
+    "react",
+    "route",
+    "routes",
+    "routing"
+  ]
+}
