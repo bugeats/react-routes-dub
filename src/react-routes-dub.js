@@ -70,9 +70,15 @@ module.exports = function routesDub (options = {}, routes = []) {
   // ----
 
   function Route ({ children, is }) {
-    return React.createElement(Consumer, {}, () => {
+    const isMatch = () => {
       const currentRoute = getCurrentRoute();
-      if (currentRoute && currentRoute.name === is) {
+      return (currentRoute && currentRoute.name === is) ? true : false;
+    };
+    return React.createElement(Consumer, {}, () => {
+      if (isMatch() && isFunction(children)) {
+        return React.createElement(Consumer, {}, children);
+      }
+      if (isMatch()) {
         return children;
       }
       return null;
@@ -124,4 +130,8 @@ function compileRoutes (routes, parent = undefined) {
     }
     return accu;
   }, []);
+}
+
+function isFunction (obj) {
+  return obj && {}.toString.call(obj) === '[object Function]';
 }

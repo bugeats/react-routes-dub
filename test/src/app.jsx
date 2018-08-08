@@ -33,6 +33,12 @@ class App extends Component {
           <Route is='pet.toys'>
             <p>pet.toys here</p>
           </Route>
+
+          <Route is='pet'>
+            { (obj) => {
+              return (<pre>{ JSON.stringify(obj, null, 2) }</pre>)
+            } }
+          </Route>
         </div>
       </DubProvider>
     );
