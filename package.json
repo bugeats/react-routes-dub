@@ -1,6 +1,6 @@
 {
   "name": "react-routes-dub",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Stripped-down, named React routes for modern browsers.",
   "author": "Chadwick Dahlquist",
   "license": "MIT",
