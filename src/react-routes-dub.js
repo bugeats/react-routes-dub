@@ -22,21 +22,41 @@ module.exports = function routesDub (options = {}, routes = []) {
 
   const { Provider, Consumer } = options.React.createContext();
 
+  function getContext () {
+    const currentRoute = getCurrentRoute();
+    // TODO eliminate need to call exec twice
+    const path = boundHistory.getCurrentPath();
+    const result = currentRoute.regexp.exec(path);
+    const params = currentRoute.keys.reduce((accu, key, idx) => {
+      accu[key.name] = result[idx + 1];
+      return accu;
+    }, {});
+
+    // this is the public facing context
+    return {
+      name: currentRoute.name,
+      params,
+      path
+    };
+  }
+
   // ----
 
   class DubProvider extends React.Component {
     constructor (props) {
       super(props);
-      this.state = {};
+      this.state = {
+        context: getContext()
+      };
       boundHistory.onPathChange(() => {
         this.setState({
-          currentPath: boundHistory.getCurrentPath()
+          context: getContext()
         });
       });
     }
 
     render () {
-      return React.createElement(Provider, { value: this.state.currentPath }, this.props.children);
+      return React.createElement(Provider, { value: this.state.context }, this.props.children);
     }
   }
 
@@ -70,16 +90,18 @@ module.exports = function routesDub (options = {}, routes = []) {
   // ----
 
   function Route ({ children, is }) {
-    const isMatch = () => {
-      const currentRoute = getCurrentRoute();
-      return (currentRoute && currentRoute.name === is) ? true : false;
-    };
-    return React.createElement(Consumer, {}, () => {
-      if (isMatch() && isFunction(children)) {
-        return React.createElement(Consumer, {}, children);
+    return React.createElement(Consumer, {}, (context) => {
+      const isMatch = (context && context.name === is) ? true : false;
+      const isAny = is === undefined;
+      const routeChild = isFunction(children)
+        ? React.createElement(Consumer, {}, children)
+        : children;
+
+      if (isAny) {
+        return routeChild;
       }
-      if (isMatch()) {
-        return children;
+      if (isMatch) {
+        return routeChild;
       }
       return null;
     });
@@ -110,10 +132,12 @@ function expandRoute (route, parent) {
     ? [parent.pattern, route.pattern].map(normalizePattern).join('')
     : normalizePattern(route.pattern);
 
-  const regexp = pathToRegexp(pattern);
+  const keys = [];
+  const regexp = pathToRegexp(pattern, keys);
   const toPath = pathToRegexp.compile(pattern);
 
   return {
+    keys,
     name,
     pattern,
     regexp,

@@ -23,7 +23,11 @@ class App extends Component {
           </Route>
 
           <Route is='pet'>
-            <p>pet is here</p>
+            { ({ params }) => {
+              return (
+                <p>pet is here ({ params.petId })</p>
+              )
+            } }
           </Route>
 
           <Route is='pet.treats'>
@@ -34,9 +38,9 @@ class App extends Component {
             <p>pet.toys here</p>
           </Route>
 
-          <Route is='pet'>
-            { (obj) => {
-              return (<pre>{ JSON.stringify(obj, null, 2) }</pre>)
+          <Route>
+            { (context) => {
+              return (<pre>{ JSON.stringify(context, null, 2) }</pre>)
             } }
           </Route>
         </div>
