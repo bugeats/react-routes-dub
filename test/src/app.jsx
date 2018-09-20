@@ -22,6 +22,18 @@ class App extends Component {
             <p>beta is here</p>
           </Route>
 
+          <Route not='alpha'>
+            <p>NOT alpha</p>
+          </Route>
+
+          <Route not={ ['alpha', 'beta'] }>
+            <p>NOT alpha or beta</p>
+          </Route>
+
+          <Route is={ ['alpha', 'beta'] }>
+            <p>IS alpha or beta</p>
+          </Route>
+
           <Route is='pet'>
             { ({ params }) => {
               return (

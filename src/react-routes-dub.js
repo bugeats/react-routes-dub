@@ -30,7 +30,7 @@ module.exports = function routesDub (options = {}, routes = []) {
         isUnmatched: true,
         name: null,
         params: {},
-        path: ''
+        path: boundHistory.getCurrentPath()
       };
     }
 
@@ -95,23 +95,30 @@ module.exports = function routesDub (options = {}, routes = []) {
     }, children);
   }
 
-  function Route ({ children, is, unmatched }) {
+  function Route ({ children, is, unmatched, not }) {
     return React.createElement(Consumer, {}, (context) => {
-      const isUnmatched = (unmatched === true) && context.isUnmatched;
-      const isMatch = (context && context.name === is) ? true : false;
-      const isAny = (is === undefined) && (unmatched === undefined);
+      const wantsUnmatched = (unmatched === true) && context.isUnmatched;
+      const wantsAny = (is === undefined) && (unmatched === undefined) && (not === undefined);
+      const isMatch = contains(is, context.name);
+      const isMatchNot = (not !== undefined) && !contains(not, context.name);
 
       const routeChild = isFunction(children)
         ? React.createElement(Consumer, {}, children)
         : children;
 
-      if (isUnmatched) {
+      if (wantsUnmatched) {
         return routeChild;
       }
-      if (isAny) {
+
+      if (isMatchNot) {
         return routeChild;
       }
+
       if (isMatch) {
+        return routeChild;
+      }
+
+      if (wantsAny) {
         return routeChild;
       }
 
@@ -168,6 +175,21 @@ function compileRoutes (routes, parent = undefined) {
     }
     return accu;
   }, []);
+}
+
+function forceToArray (obj) {
+  if (obj === undefined) return [];
+  if (obj === null) return [];
+  return Array.isArray(obj) ? obj : [obj];
+}
+
+function contains (arr, obj) {
+  for (const item of forceToArray(arr)) {
+    if (item === obj) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function isFunction (obj) {
