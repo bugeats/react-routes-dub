@@ -24,6 +24,16 @@ module.exports = function routesDub (options = {}, routes = []) {
 
   function getContext () {
     const currentRoute = getCurrentRoute();
+
+    if (!currentRoute) {
+      return {
+        isUnmatched: true,
+        name: null,
+        params: {},
+        path: ''
+      };
+    }
+
     // TODO eliminate need to call exec twice
     const path = boundHistory.getCurrentPath();
     const result = currentRoute.regexp.exec(path);
@@ -40,7 +50,17 @@ module.exports = function routesDub (options = {}, routes = []) {
     };
   }
 
-  // ----
+  // ---- Public Helper Functions ----
+
+  function pathFor (name, params = {}) {
+    const found = routesCompiledByName[name];
+    if (found) {
+      return found.toPath(params);
+    }
+    return '';
+  }
+
+  // ---- Public React Components ----
 
   class DubProvider extends React.Component {
     constructor (props) {
@@ -60,18 +80,6 @@ module.exports = function routesDub (options = {}, routes = []) {
     }
   }
 
-  // ----
-
-  function pathFor (name, params = {}) {
-    const found = routesCompiledByName[name];
-    if (found) {
-      return found.toPath(params);
-    }
-    return '';
-  }
-
-  // ----
-
   function Link ({ children, to, params }) {
     const foundRoute = routesCompiledByName[to];
     if (!foundRoute) throw new Error(`no route by name '${ to }'`);
@@ -87,35 +95,41 @@ module.exports = function routesDub (options = {}, routes = []) {
     }, children);
   }
 
-  // ----
-
-  function Route ({ children, is }) {
+  function Route ({ children, is, unmatched }) {
     return React.createElement(Consumer, {}, (context) => {
+      const isUnmatched = (unmatched === true) && context.isUnmatched;
       const isMatch = (context && context.name === is) ? true : false;
-      const isAny = is === undefined;
+      const isAny = (is === undefined) && (unmatched === undefined);
+
       const routeChild = isFunction(children)
         ? React.createElement(Consumer, {}, children)
         : children;
 
+      if (isUnmatched) {
+        return routeChild;
+      }
       if (isAny) {
         return routeChild;
       }
       if (isMatch) {
         return routeChild;
       }
+
       return null;
     });
   }
 
+  // ----
+
   return {
-    Link,
     DubProvider,
+    Link,
     Route,
     pathFor
   };
 };
 
-// -----------------------------------------------------------------------------
+// Supporting Private Functions ------------------------------------------------
 
 function normalizePattern (pattern) {
   return '/' + pattern

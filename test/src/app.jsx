@@ -43,6 +43,10 @@ class App extends Component {
               return (<pre>{ JSON.stringify(context, null, 2) }</pre>)
             } }
           </Route>
+
+          <Route unmatched>
+            <p>ROUTE IS UNMATCHED</p>
+          </Route>
         </div>
       </DubProvider>
     );
