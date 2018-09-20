@@ -16,4 +16,71 @@ That single dependency is important. [path-to-regexp](https://github.com/pillarj
 
 # Usage
 
-**See [./test](./test) for now.**
+Define your routes with a single file:
+
+```javascript
+// routes.js
+
+const React = require('react'); 
+const routesDub = require('react-routes-dub');
+
+module.exports = routesDub({
+  React
+}, [
+  {
+    name: 'home',
+    pattern: '/'
+  },
+  {
+    name: 'pet',
+    pattern: 'pets/:petId',
+    routes: [
+      {
+        name: 'toys',
+        pattern: 'toys'
+      }
+    ]
+  }
+]);
+
+```
+
+Now everything you need to begin routing is immediately available.
+
+```jsx
+// app.jsx
+
+import React, { Component } from 'react';
+import { DubProvider, Link, Route } from './routes';
+
+class App extends Component {
+  render () {
+    return (
+      <DubProvider>
+        <Link to='home'>Home</Link>
+        <Link to='pet' params={ { petId: 'dog-1' } }>See Dog One</Link>
+        <Link to='pet' params={ { petId: 'dog-2' } }>See Dog Two</Link>
+        <Link to='pet.toys' params={ { petId: 'dog-1' } }>See Dog One's Toys</Link>
+        <Route is='home'>
+          <p>Welcome home.</p>
+        </Route>
+        <Route is='pet'>
+          { ({ params }) => {
+            // route parameters are available here
+            return (
+              <p>Pet ID here: { params.petId }</p>
+            )
+          } }
+        </Route>
+        <Route is='pet.toys'>
+          <p>Pet Toys!</p>
+        </Route>
+      </DubProvider>
+    );
+  }
+}
+```
+
+That's it! You're done.
+
+**See [./test](./test) for more.**
