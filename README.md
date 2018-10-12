@@ -4,14 +4,24 @@ Stupid-easy React routing for the browser in 200 lines of code and with a single
 
 That single dependency is important. [path-to-regexp](https://github.com/pillarjs/path-to-regexp) is used by Express to parse path strings, and now you can use it for your client-side routes.
 
-- All configuration takes place in a single file.
+Why you might use it:
+
+- All configuration takes place in a single file, using plain JS.
 - Uses the [React Context API](https://reactjs.org/docs/context.html) for minimum fuss.
 - Routes are **named**, as they should be.
 
+Why you might skip it:
+
+- Browser only. Not for React Native, React VR, or anything else like that.
+-
 
 # Installation
 
     yarn add react-routes-dub
+
+or
+    
+    npm install --save react-routes-dub
 
 
 # Usage
@@ -21,8 +31,7 @@ Define your routes with a single file:
 ```javascript
 // routes.js
 
-const React = require('react'); 
-const routesDub = require('react-routes-dub');
+import routesDub from 'react-routes-dub';
 
 export const {
   DubProvider,
@@ -86,4 +95,4 @@ class App extends Component {
 
 That's it! You're done.
 
-**See [./test](./test) for more.**
+**See [./test](./test) for a complete example.**
