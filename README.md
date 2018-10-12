@@ -13,7 +13,7 @@ Why you might use it:
 Why you might skip it:
 
 - Browser only. Not for React Native, React VR, or anything else like that.
--
+
 
 # Installation
 

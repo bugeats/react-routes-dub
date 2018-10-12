@@ -1,6 +1,6 @@
 {
   "name": "react-routes-dub",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Chadwick Dahlquist",
   "description": "Stupid-easy React routing for the browser in 200 lines of code and with a single dependency.",
   "license": "MIT",
