@@ -13,6 +13,9 @@
   "bugs": {
     "url": "https://github.com/bugeats/react-routes-dub/issues"
   },
+  "scripts": {
+    "lint": "eslint ./src"
+  },
   "dependencies": {
     "path-to-regexp": "^2.4.0"
   },
@@ -28,5 +31,8 @@
     "route",
     "routes",
     "routing"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^5.7.0"
+  }
 }
