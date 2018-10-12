@@ -1,4 +1,4 @@
-const routesDub = require('./react-routes-dub');
+const routesDub = require('react-routes-dub');
 
 module.exports = routesDub([
   {
