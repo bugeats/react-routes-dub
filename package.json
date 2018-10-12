@@ -25,10 +25,16 @@
   "keywords": [
     "history-api",
     "minimalist",
+    "path-to-regexp",
     "react",
     "react-context",
     "react-context-api",
+    "react-route",
+    "react-router",
+    "react-routes",
+    "react-routing",
     "route",
+    "router",
     "routes",
     "routing"
   ],
