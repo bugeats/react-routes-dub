@@ -24,9 +24,12 @@ Define your routes with a single file:
 const React = require('react'); 
 const routesDub = require('react-routes-dub');
 
-module.exports = routesDub({
-  React
-}, [
+export const {
+  DubProvider,
+  Link,
+  Route,
+  pathFor
+} = routesDub([
   {
     name: 'home',
     pattern: '/'
