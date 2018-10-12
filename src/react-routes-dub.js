@@ -2,19 +2,7 @@ const React = require('react');
 const pathToRegexp = require('path-to-regexp');
 const BoundHistory = require('./bound-history');
 
-module.exports = function routesDub (routes = [], routesLegacySupport=[]) {
-  if (routes.React){ // support the legacy api
-    try { // make sure a console doesn't break IE
-      console.warn(
-        "DEPRECTED usage of #routesDub, arguments have change\n" +
-        'react-routes-dub has made React a peer dependency ' +
-        'and deprecated support for the `routesDub(options, routes)` api.' +
-        'Please use `routesDub(routes)` instead.'
-      );
-    } catch (e) {}
-    routes = routesLegacySupport;
-  }
-
+module.exports = function routesDub (routes = []) {
   const routesCompiled = compileRoutes(routes);
   const routesCompiledByName = routesCompiled.reduce((accu, route) => {
     accu[route.name] = route;

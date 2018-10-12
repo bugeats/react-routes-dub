@@ -1,4 +1,3 @@
-const React = require('react'); 
 const routesDub = require('./react-routes-dub');
 
 module.exports = routesDub([
