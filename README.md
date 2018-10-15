@@ -46,6 +46,9 @@ export const {
   {
     name: 'pet',
     pattern: 'pets/:petId',
+    onEnter: ({ params }) => {
+      loadPetData(params.petId);
+    },
     routes: [
       {
         name: 'toys',
