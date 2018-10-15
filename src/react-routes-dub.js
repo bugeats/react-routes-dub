@@ -49,6 +49,14 @@ module.exports = function routesDub (routes = []) {
     };
   }
 
+  // handle route enter events
+  boundHistory.onPathChange(() => {
+    const currentRoute = getCurrentRoute();
+    if (currentRoute.onEnter) {
+      currentRoute.onEnter(getContext());
+    }
+  });
+
   // ---- Public Helper Functions ----
 
   function pathFor (name, params = {}) {
@@ -156,9 +164,14 @@ function expandRoute (route, parent) {
   const regexp = pathToRegexp(pattern, keys);
   const toPath = pathToRegexp.compile(pattern);
 
+  const onEnter = (route.onEnter && isFunction(route.onEnter))
+    ? route.onEnter
+    : undefined;
+
   return {
     keys,
     name,
+    onEnter,
     pattern,
     regexp,
     toPath

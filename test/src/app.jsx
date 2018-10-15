@@ -9,6 +9,7 @@ class App extends Component {
         <div className='app'>
           <p><Link to='alpha'>{ pathFor('alpha') }</Link></p>
           <p><Link to='beta'>{ pathFor('beta') }</Link></p>
+          <p><Link to='pets'>{ pathFor('pets') }</Link></p>
           <p><Link to='pet' params={ { petId: 'dog-1' } }>{ pathFor('pet', { petId: 'dog-1' }) }</Link></p>
           <p><Link to='pet' params={ { petId: 'dog-2' } }>{ pathFor('pet', { petId: 'dog-2' }) }</Link></p>
           <p><Link to='pet.treats' params={ { petId: 'dog-1' } }>{ pathFor('pet.treats', { petId: 'dog-1' }) }</Link></p>
