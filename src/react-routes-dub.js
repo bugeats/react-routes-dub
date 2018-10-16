@@ -58,7 +58,6 @@ module.exports = function routesDub (routes = []) {
   }
 
   boundHistory.onPathChange(handlePathChange);
-  handlePathChange(); // routes init counts as a path change
 
   // ---- Public Helper Functions ----
 
@@ -83,6 +82,10 @@ module.exports = function routesDub (routes = []) {
           context: getContext()
         });
       });
+    }
+
+    componentDidMount () {
+      handlePathChange(); // routes init counts as a path change
     }
 
     render () {
