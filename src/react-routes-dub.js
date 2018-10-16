@@ -49,13 +49,16 @@ module.exports = function routesDub (routes = []) {
     };
   }
 
-  // handle route enter events
-  boundHistory.onPathChange(() => {
+  function handlePathChange () {
+    // handle route enter events
     const currentRoute = getCurrentRoute();
     if (currentRoute.onEnter) {
       currentRoute.onEnter(getContext());
     }
-  });
+  }
+
+  boundHistory.onPathChange(handlePathChange);
+  handlePathChange(); // routes init counts as a path change
 
   // ---- Public Helper Functions ----
 
@@ -178,7 +181,7 @@ function expandRoute (route, parent) {
   };
 }
 
-function compileRoutes (routes, parent = undefined) {
+function compileRoutes (routes = [], parent = undefined) {
   return routes.reduce((accu, route) => {
     const routeX = expandRoute(route, parent);
     accu.push(routeX);
