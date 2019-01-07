@@ -1,6 +1,6 @@
 {
   "name": "react-routes-dub",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "author": "Chadwick Dahlquist",
   "description": "Stupid-easy React routing for the browser in 200 lines of code and with a single dependency.",
   "license": "MIT",
@@ -39,6 +39,6 @@
     "routing"
   ],
   "devDependencies": {
-    "eslint": "^5.7.0"
+    "eslint": "^5.12.0"
   }
 }
