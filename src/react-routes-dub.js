@@ -21,7 +21,9 @@ module.exports = function routesDub (routes = []) {
 
   const { Provider, Consumer } = React.createContext();
 
-  function getContext () {
+  // instead of exposing the entire current route details,
+  // just use 'context' as the public data exposed all over the place.
+  function getCurrentContext () {
     const currentRoute = getCurrentRoute();
 
     if (!currentRoute) {
@@ -29,6 +31,7 @@ module.exports = function routesDub (routes = []) {
         isUnmatched: true,
         name: null,
         params: {},
+        meta: {},
         path: boundHistory.getCurrentPath()
       };
     }
@@ -55,7 +58,7 @@ module.exports = function routesDub (routes = []) {
     // handle route enter events
     const currentRoute = getCurrentRoute();
     if (currentRoute && currentRoute.onEnter) {
-      currentRoute.onEnter(getContext());
+      currentRoute.onEnter(getCurrentContext());
     }
   }
 
@@ -77,11 +80,11 @@ module.exports = function routesDub (routes = []) {
     constructor (props) {
       super(props);
       this.state = {
-        context: getContext()
+        context: getCurrentContext()
       };
       boundHistory.onPathChange(() => {
         this.setState({
-          context: getContext()
+          context: getCurrentContext()
         });
       });
     }
@@ -147,6 +150,7 @@ module.exports = function routesDub (routes = []) {
     DubProvider,
     Link,
     Route,
+    getCurrentContext,
     pathFor
   };
 };

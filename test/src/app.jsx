@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-import { Link, pathFor, Route, DubProvider } from './routes';
+import { Link, pathFor, Route, DubProvider, getCurrentContext } from './routes';
 
 class App extends Component {
   render () {
+    const logCurrentContext = () => {
+      console.log(getCurrentContext());
+    };
+
     return (
       <DubProvider>
         <div className='app'>
@@ -70,6 +74,8 @@ class App extends Component {
           <Route unmatched>
             <p>ROUTE IS UNMATCHED</p>
           </Route>
+
+          <button onClick={ logCurrentContext }>Log Current Context</button>
         </div>
       </DubProvider>
     );
