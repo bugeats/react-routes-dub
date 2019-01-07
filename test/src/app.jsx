@@ -15,6 +15,16 @@ class App extends Component {
           <p><Link to='pet.treats' params={ { petId: 'dog-1' } }>{ pathFor('pet.treats', { petId: 'dog-1' }) }</Link></p>
           <p><Link to='pet.toys' params={ { petId: 'dog-1' } }>{ pathFor('pet.toys', { petId: 'dog-1' }) }</Link></p>
 
+          <Route any>
+            { ({ meta }) => {
+              if (meta.title) {
+                return (
+                  <h3>{ meta.title }</h3>
+                )
+              }
+            } }
+          </Route>
+
           <Route is='alpha'>
             <p>alpha is here</p>
           </Route>

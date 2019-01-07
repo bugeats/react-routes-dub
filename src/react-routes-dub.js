@@ -36,6 +36,7 @@ module.exports = function routesDub (routes = []) {
     // TODO eliminate need to call exec twice
     const path = boundHistory.getCurrentPath();
     const result = currentRoute.regexp.exec(path);
+    const meta = currentRoute.meta || {};
     const params = currentRoute.keys.reduce((accu, key, idx) => {
       accu[key.name] = result[idx + 1];
       return accu;
@@ -45,6 +46,7 @@ module.exports = function routesDub (routes = []) {
     return {
       name: currentRoute.name,
       params,
+      meta,
       path
     };
   }
@@ -52,7 +54,7 @@ module.exports = function routesDub (routes = []) {
   function handlePathChange () {
     // handle route enter events
     const currentRoute = getCurrentRoute();
-    if (currentRoute.onEnter) {
+    if (currentRoute && currentRoute.onEnter) {
       currentRoute.onEnter(getContext());
     }
   }
@@ -174,8 +176,12 @@ function expandRoute (route, parent) {
     ? route.onEnter
     : undefined;
 
+  // meta properties cascade to children
+  const meta = Object.assign({}, (parent ? parent.meta : {}), route.meta);
+
   return {
     keys,
+    meta,
     name,
     onEnter,
     pattern,

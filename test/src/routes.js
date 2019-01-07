@@ -5,11 +5,17 @@ const routesDub = require('react-routes-dub');
 module.exports = routesDub([
   {
     name: 'alpha',
-    pattern: '/alpha'
+    pattern: '/alpha',
+    meta: {
+      title: 'Title for Alpha'
+    }
   },
   {
     name: 'beta',
     pattern: '/beta',
+    meta: {
+      title: 'Title for Beta'
+    },
     onEnter: () => {
       console.log('onEnter beta');
     }
@@ -21,6 +27,9 @@ module.exports = routesDub([
   {
     name: 'pet',
     pattern: 'pets/:petId',
+    meta: {
+      title: 'Title for Any Pet'
+    },
     onEnter: ({ params }) => {
       console.log(`onEnter pets, petId: ${ params.petId }`);
     },
