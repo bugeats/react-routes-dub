@@ -54,12 +54,23 @@ module.exports = function routesDub (routes = []) {
     };
   }
 
+  const onContextChangeListeners = [];
+
+  function onContextChange (callbackFn) {
+    if (isFunction(callbackFn)) {
+      onContextChangeListeners.push(callbackFn);
+    }
+  }
+
   function handlePathChange () {
     // handle route enter events
     const currentRoute = getCurrentRoute();
     if (currentRoute && currentRoute.onEnter) {
       currentRoute.onEnter(getCurrentContext());
     }
+
+    // handle any on change listeners
+    onContextChangeListeners.forEach(fn => fn(getCurrentContext()));
   }
 
   boundHistory.onPathChange(handlePathChange);
@@ -151,6 +162,7 @@ module.exports = function routesDub (routes = []) {
     Link,
     Route,
     getCurrentContext,
+    onContextChange,
     pathFor
   };
 };

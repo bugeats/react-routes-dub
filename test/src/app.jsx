@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 
-import { Link, pathFor, Route, DubProvider, getCurrentContext } from './routes';
+import { Link, pathFor, Route, DubProvider, getCurrentContext, onContextChange } from './routes';
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+    onContextChange((context) => {
+      console.log('context did change:', context);
+    });
+  }
+
   render () {
     const logCurrentContext = () => {
       console.log(getCurrentContext());
