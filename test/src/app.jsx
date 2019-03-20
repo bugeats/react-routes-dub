@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 
-import { Link, pathFor, Route, DubProvider, getCurrentContext, onContextChange } from './routes';
+import {
+  DubProvider,
+  Link,
+  Route,
+  getCurrentContext,
+  onContextChange,
+  pathFor,
+  routeTo
+} from './routes';
 
 class App extends Component {
   constructor (props) {
@@ -13,6 +21,10 @@ class App extends Component {
   render () {
     const logCurrentContext = () => {
       console.log(getCurrentContext());
+    };
+
+    const programaticRoute = () => {
+      routeTo('pet.treats', { petId: 'dog-2' });
     };
 
     return (
@@ -83,6 +95,7 @@ class App extends Component {
           </Route>
 
           <button onClick={ logCurrentContext }>Log Current Context</button>
+          <button onClick={ programaticRoute }>Invoke Programatic Route</button>
         </div>
       </DubProvider>
     );

@@ -85,6 +85,15 @@ module.exports = function routesDub (routes = []) {
     return '';
   }
 
+  function routeTo (name, params = {}) {
+    const foundRoute = routesCompiledByName[name];
+    if (!foundRoute) throw new Error(`no route by name '${ name }'`);
+
+    const path = params ? foundRoute.toPath(params) : foundRoute.pattern;
+    boundHistory.pushPath(path);
+  }
+
+
   // ---- Public React Components ----
 
   class DubProvider extends React.Component {
@@ -163,7 +172,8 @@ module.exports = function routesDub (routes = []) {
     Route,
     getCurrentContext,
     onContextChange,
-    pathFor
+    pathFor,
+    routeTo
   };
 };
 
