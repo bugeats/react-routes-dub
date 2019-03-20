@@ -17,10 +17,10 @@
     "lint": "eslint ./src"
   },
   "dependencies": {
-    "path-to-regexp": "^2.4.0"
+    "path-to-regexp": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.4.2"
+    "react": "^16.8.4"
   },
   "keywords": [
     "history-api",
@@ -39,6 +39,6 @@
     "routing"
   ],
   "devDependencies": {
-    "eslint": "^5.12.0"
+    "eslint": "^5.15.3"
   }
 }
