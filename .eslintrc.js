@@ -25,7 +25,11 @@ module.exports = {
         'strict': 0
     },
     'env': {
-        'node': true,
-        'es6': true
+        'browser': true,
+        'es6': true,
+        'node': true
+    },
+    'parserOptions': {
+      'ecmaVersion': 9
     }
 };

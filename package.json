@@ -1,8 +1,8 @@
 {
   "name": "react-routes-dub",
-  "version": "1.5.0",
+  "version": "2.0.0-alpha.5",
   "author": "Chadwick Dahlquist",
-  "description": "Stupid-easy React routing for the browser in 200 lines of code and with a single dependency.",
+  "description": "This is my React routing library. There are many like it, but this one is mine.",
   "license": "MIT",
   "main": "index.js",
   "homepage": "https://github.com/bugeats/react-routes-dub#readme",
@@ -14,13 +14,16 @@
     "url": "https://github.com/bugeats/react-routes-dub/issues"
   },
   "scripts": {
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "test:doop": "NODE_ENV=test tape '{,!(node_modules)/**/}*.test.js'",
+    "test": "NODE_ENV=test tape src/**/**/*.test.js",
+    "test:one": "NODE_ENV=test tape"
   },
   "dependencies": {
-    "path-to-regexp": "^3.0.0"
+    "path-to-regexp": "^6.1.0"
   },
   "peerDependencies": {
-    "react": "^16.8.4"
+    "react": "^16.12.0"
   },
   "keywords": [
     "history-api",
@@ -39,6 +42,7 @@
     "routing"
   ],
   "devDependencies": {
-    "eslint": "^5.15.3"
+    "eslint": "^6.7.2",
+    "tape": "^4.12.0"
   }
 }

@@ -1,1 +1,1 @@
-module.exports = require('./src/react-routes-dub');
+module.exports = require('./src/routes-dub');

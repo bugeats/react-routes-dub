@@ -1,2 +1,2 @@
 npm install
-npm run start
+SKIP_PREFLIGHT_CHECK=true npm run start
