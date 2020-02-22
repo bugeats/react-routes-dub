@@ -160,6 +160,63 @@ test('DubRuntime (public)', (t) => {
 
     assert.end();
   });
+
+  t.test('onExit', async (assert) => {
+    let alphaExits = 0;
+    let betaExits = 0;
+    let gammaExits = 0;
+    let deltaExits = 0;
+
+    const runtime = gimmeDub([
+      {
+        name: 'alpha',
+        onExit: () => alphaExits += 1,
+        routes: [
+          {
+            name: 'beta',
+            onExit: () => betaExits += 1,
+            routes: [
+              {
+                name: 'gamma',
+                onExit: () => gammaExits += 1
+              }
+            ]
+          },
+          {
+            name: 'delta',
+            onExit: () => deltaExits += 1
+          }
+        ]
+      }
+    ]);
+
+    await runtime.transitionRouteTo('alpha.beta.gamma');
+    await runtime.transitionRouteTo('alpha');
+
+    assert.equal(alphaExits, 0);
+    assert.equal(betaExits, 0);
+    assert.equal(gammaExits, 1);
+    assert.equal(deltaExits, 0);
+
+    await runtime.transitionRouteTo('alpha.beta.gamma');
+    await runtime.transitionRouteTo('alpha');
+
+    assert.equal(alphaExits, 1);
+    assert.equal(betaExits, 0);
+    assert.equal(gammaExits, 2);
+    assert.equal(deltaExits, 0);
+
+    await runtime.transitionRouteTo('alpha.delta');
+    await runtime.transitionRouteTo('alpha.beta');
+    await runtime.transitionRouteTo('alpha.beta.gamma');
+
+    assert.equal(alphaExits, 2);
+    assert.equal(betaExits, 1);
+    assert.equal(gammaExits, 2);
+    assert.equal(deltaExits, 1);
+
+    assert.end();
+  });
 });
 
 test('DubRuntime (private)', (t) => {

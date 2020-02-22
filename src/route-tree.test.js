@@ -131,7 +131,7 @@ test('RouteTree', (t) => {
     assert.deepEqual(home, {
       ...home,
       name: 'home',
-      pattern: '/',
+      pattern: '',
       meta: { temperature: 65 },
       parent: undefined,
       ancestors: [],

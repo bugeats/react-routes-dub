@@ -162,6 +162,7 @@ function compileFlatList (routesDef) {
       regexp: pathToRegexp.pathToRegexp(pattern),
       contextCompiler: pathToRegexp.compile(pattern),
       onEnter: route.onEnter || noop,
+      onExit: route.onExit || noop,
       onVisit: route.onVisit || noop,
       onVisitAscending: route.onVisitAscending || noop,
       onVisitDescending: route.onVisitDescending || noop

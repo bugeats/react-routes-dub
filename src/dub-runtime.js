@@ -78,8 +78,16 @@ class DubRuntime {
 
   async transitionRouteTo (toRouteName, toRouteContext = {}) {
     this.log(`transition to '${toRouteName}' (${JSON.stringify(toRouteContext)})`);
+
     this.transitionState.setDestination(toRouteName, toRouteContext);
+
+    const currentRouteName = this.getCurrentRouteName();
+    if (currentRouteName && currentRouteName !== toRouteName) {
+      await this.tree.get(currentRouteName).onExit();
+    }
+
     await this.tick();
+
     this.log(`transition COMPLETE to '${toRouteName}' (${JSON.stringify(toRouteContext)})`);
   }
 
