@@ -1,6 +1,6 @@
 {
   "name": "react-routes-dub",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "author": "Chadwick Dahlquist",
   "description": "This is my React routing library. There are many like it, but this one is mine.",
   "license": "MIT",
