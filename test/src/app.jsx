@@ -60,6 +60,12 @@ function App () {
     )
   });
 
+  function handleOverrideClick (evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    console.log('NO!', evt);
+  }
+
   return (
     <>
       <h1>react-routes-dub</h1>
@@ -76,6 +82,8 @@ function App () {
       <Route is={['crates.crate', 'crates.crate.play']}>
         <Turntable/>
       </Route>
+
+      <Link to='mammal.primate' onClick={handleOverrideClick}>onClick override</Link>
     </>
   );
 }

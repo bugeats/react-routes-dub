@@ -4,16 +4,19 @@ function injectLink (dubRuntime) {
   function Link ({
     children,
     context,
+    onClick,
     to
   }) {
     const path = dubRuntime.getRoutePath(to, context);
 
+    function handleRouteLinkClick (evt) {
+      evt.preventDefault();
+      dubRuntime.transitionPathTo(path);
+    }
+
     return React.createElement('a', {
       href: path,
-      onClick: (evt) => {
-        evt.preventDefault();
-        dubRuntime.transitionPathTo(path);
-      }
+      onClick: onClick || handleRouteLinkClick
     }, children);
   }
 
