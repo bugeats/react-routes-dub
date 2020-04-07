@@ -26,6 +26,8 @@ or
 
 # Usage
 
+[![Edit react-routes-dub-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/2vr2ojv8n0)
+
 Define your routes with a single file:
 
 ```javascript
